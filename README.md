@@ -1,2 +1,4 @@
 # finance_portfolio_application
-b
+exercices d'application utilisé pour un TP.
+Inspiré par https://www.coursera.org/learn/advanced-portfolio-construction-python/
+
