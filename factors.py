@@ -9,7 +9,7 @@ import tools
 rf = 0
 
 #liste des symbole qu'on veut recupérer
-symbols = ['MSFT','AAPL','TSLA','AMZN','^GSPC','PM','KO','AAL','AXP','SBUX','JNJ']
+symbols = ['MSFT','AAPL','AMZN','^GSPC','PM','KO','AAL','AXP','SBUX','JNJ']
 returns_matrix = pd.DataFrame()
 price_matrix = pd.DataFrame()
 symbolsdf = pd.DataFrame()
@@ -23,7 +23,7 @@ for symbol in symbols:
     #on calcule le returns
     # on supprime la premiere ligne qui est un NaN
     # on rename la colonne "returns" en AAPL par exemple pour la stocker directement dans la matrice avec le bon nom
-    symboldf['returns'] = symboldf['Close'].pct_change() - rf
+    symboldf['returns'] = symboldf['Close'].pct_change()
     symboldf.dropna(inplace=True)
     symbolsdf = pd.concat([symbolsdf, symboldf],axis=0)
 
@@ -42,10 +42,16 @@ result['beta'] = result['cov_w_sp500']/result['var_sp500']
 sp500returns = float(result[result.symbol=='^GSPC']['returns'])
 result['required_returns'] = rf + result['beta']*(sp500returns - rf)
 
-#on affiche le tableau
-print(result[['returns','beta','required_returns']])
 
-plt.plot(result['beta'],result['required_returns'])
+#calcul sharpe / traynor / jensen
+result['sharpe'] = (result['returns'] - rf) / result['returns'].std()
+result['traynor'] = (result['returns'] - rf) / result['beta']
+result['jensen'] = result['returns'] - (rf + result['beta']*(sp500returns - rf))
+
+#on affiche le tableau
+print(result[['returns','beta','required_returns','sharpe','traynor','jensen']])
+
+plt.plot(result['beta'],result['required_returns'], 'r--')
 plt.scatter(result['beta'],result['returns'])
 
 plt.show()
