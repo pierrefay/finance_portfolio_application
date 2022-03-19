@@ -64,7 +64,10 @@ print('\n\nreturns par stratégie:')
 results = pd.DataFrame(columns=weights.index, index=returns.index)
 print((returns*weights).sum(axis=1))
 
+returns_matrix['my_portfolio'] =0
+for asset in assets:
+    returns_matrix['my_portfolio'] = returns_matrix['my_portfolio'] + (returns_matrix[asset] * float(weights[weights.index=='MSR'][asset]))
 
-#on affiche american airline etc...
-price_matrix[['MSFT','AAPL','TSLA','BTC-USD','^GSPC','PM','KO','AAL','AXP']].plot()
+
+((1 + returns_matrix[assets+['my_portfolio']]).cumprod() -1 ).plot()
 plt.show()
