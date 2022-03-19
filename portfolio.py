@@ -6,7 +6,9 @@ import matplotlib.pyplot as plt
 import tools
 
 #liste des symbole qu'on veut recupérer
-symbols = ['MSFT','AAPL','TSLA','BTC-USD','^GSPC','PM','KO','AAL','AXP']
+assets = ['MSFT','AAPL','TSLA','BTC-USD','PM','KO','AAL','AXP']
+symbols = assets + ['^GSPC']
+
 returns_matrix = pd.DataFrame()
 price_matrix = pd.DataFrame()
 
@@ -51,7 +53,7 @@ print(stats)
 #frontiere efficiente
 # liens volatilité / risque
 # "magie" de la diversification sur la volatilité
-assets = ['MSFT','AAPL','TSLA','BTC-USD','PM','KO','AAL','AXP']
+
 number_of_points = 20
 dfreturns = returns_matrix[assets]
 returns = stats['total_returns'][assets]
