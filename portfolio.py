@@ -65,6 +65,6 @@ results = pd.DataFrame(columns=weights.index, index=returns.index)
 print((returns*weights).sum(axis=1))
 
 
-#on affiche american airline
+#on affiche american airline etc...
 price_matrix[['MSFT','AAPL','TSLA','BTC-USD','^GSPC','PM','KO','AAL','AXP']].plot()
 plt.show()
