@@ -70,4 +70,7 @@ for asset in assets:
 
 
 ((1 + returns_matrix[assets+['my_portfolio']]).cumprod() -1 ).plot()
+
+stats = tools.portfolio_stats(returns_matrix)
+print(stats)
 plt.show()
