@@ -9,6 +9,8 @@ import tools
 rf = 0
 
 #liste des symbole qu'on veut recupérer
+#liste des symbol ici: https://admiralmarkets.com/fr/formation/articles/trading-instruments/composition-sp500?msclkid=32843a91a77611ec8ab7655b7fc5191f
+
 symbols = ['MSFT','AAPL','AMZN','^GSPC','PM','KO','AAL','AXP','SBUX','JNJ']
 returns_matrix = pd.DataFrame()
 price_matrix = pd.DataFrame()
@@ -43,14 +45,25 @@ sp500returns = float(result[result.symbol=='^GSPC']['returns'])
 result['required_returns'] = rf + result['beta']*(sp500returns - rf)
 
 
-#calcul sharpe / traynor / jensen
+#maintenant on va calculer quelques indices pour les assets précédents:
+
+#average return earned in excess of the risk-free rate per unit of volatility
+#https://www.investopedia.com/terms/s/sharperatio.asp
 result['sharpe'] = (result['returns'] - rf) / result['returns'].std()
+
+#portfolio's excess return per unit of risk
+#https://www.investopedia.com/terms/t/treynor-index.asp
 result['traynor'] = (result['returns'] - rf) / result['beta']
+
+#also called "alpha"
+# average return on a portfolio or investment, above or below that predicted by the capital asset pricing model (CAPM)
 result['jensen'] = result['returns'] - (rf + result['beta']*(sp500returns - rf))
 
 #on affiche le tableau
+print(['returns','beta','required_returns','sharpe','traynor','jensen'])
 print(result[['returns','beta','required_returns','sharpe','traynor','jensen']])
 
+#on affiche la SML
 plt.plot(result['beta'],result['required_returns'], 'r--')
 plt.scatter(result['beta'],result['returns'])
 
