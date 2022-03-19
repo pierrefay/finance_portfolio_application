@@ -63,3 +63,8 @@ weights = tools.plot_efficient_frontier(number_of_points, returns, cov, riskfree
 print('\n\nreturns par stratégie:')
 results = pd.DataFrame(columns=weights.index, index=returns.index)
 print((returns*weights).sum(axis=1))
+
+
+#on affiche american airline
+price_matrix[['MSFT','AAPL','TSLA','BTC-USD','^GSPC','PM','KO','AAL','AXP']].plot()
+plt.show()
