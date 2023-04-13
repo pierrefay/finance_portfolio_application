@@ -17,14 +17,11 @@ def black_scholes_put(S, K, r, T, sigma):
     return put_price
 
 def black_scholes_strike(S, price, r, T, sigma, is_call=True):
-    def objective_func(K, S, price, r, T, sigma, is_call=True):
-        if is_call:
-            return black_scholes_call(S, K, r, T, sigma) - price
-        else:
-            return black_scholes_put(S, K, r, T, sigma) - price
-    from scipy.optimize import root_scalar
-    result = root_scalar(objective_func, bracket=[0, 2*S], args=(S, price, r, T, sigma, is_call))
-    return result.root
+	if is_call:
+	    return black_scholes_call(S, K, r, T, sigma) - price
+	else:
+	    return black_scholes_put(S, K, r, T, sigma) - price
+
     
 
 S=69
